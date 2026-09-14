@@ -1,26 +1,25 @@
-% ---- PROJECTS SECTION ----
-% Highlight your best projects. Include tech stack and measurable outcomes.
-
 \resumeProjectHeading
-  {\textbf{resume-maker-mcp} $|$ \emph{Python, MCP Protocol, LaTeX, GitHub Actions}}{2024}
+  {latex-resume-mcp}{Python, MCP Protocol, LaTeX, GitHub Actions}{\href{https://github.com/9ikhil/latex-resume-mcp}{Code} \textbar\ 2026}
   \resumeItemListStart
-    \resumeItem{Built a local MCP server that analyzes job descriptions and surgically edits a LaTeX resume using Claude Desktop.}
-    \resumeItem{Implemented 5 MCP tools: analyze\_jd, tailor\_resume, push\_changes, read\_resume, list\_sections.}
-    \resumeItem{Integrated GitHub Actions CI/CD pipeline that auto-compiles resume PDF on every push — zero manual steps.}
-    \resumeItem{Architected a zero-cost stack: local Python server + Git + GitHub Actions, no paid services required.}
+    \resumeItem{Built a local MCP server that analyzes job descriptions and surgically edits a LaTeX resume via Claude Desktop, exposing 5 tools: analyze\_jd, tailor\_resume, push\_changes, read\_resume, list\_sections.}
+    \resumeItem{Integrated GitHub Actions CI/CD pipeline that auto-compiles resume PDF on every push -- zero manual steps and zero cloud cost.}
   \resumeItemListEnd
 
 \resumeProjectHeading
-  {\textbf{Your Project 2} $|$ \emph{Tech Stack Here}}{2024}
+  {Agentic-CRM -- RAG Agent}{LangGraph, FastMCP, ChromaDB, LiteLLM, NeMo Guardrails, Streamlit}{\href{https://github.com/9ikhil/crm-rag-agent}{Code} \textbar\ 2025}
   \resumeItemListStart
-    \resumeItem{Describe what you built and the problem it solved.}
-    \resumeItem{Highlight measurable outcomes: performance, scale, users, etc.}
-    \resumeItem{Mention key technologies and architectural decisions.}
+    \resumeItem{Designed and deployed a full-stack AI agent enabling policy Q\&A and CRM ticket lookup via RAG (ChromaDB + HuggingFace embeddings), orchestrated with LangGraph and MCP tool-calling, with LLM gateway fallback and guardrails, resulting in 89\% faster response times.}
   \resumeItemListEnd
 
 \resumeProjectHeading
-  {\textbf{Your Project 3} $|$ \emph{Tech Stack Here}}{2023}
+  {Store Rating Platform}{React, Node.js, Express, PostgreSQL, Sequelize, JWT}{2025}
   \resumeItemListStart
-    \resumeItem{Describe what you built and the problem it solved.}
-    \resumeItem{Highlight measurable outcomes: performance, scale, users, etc.}
+    \resumeItem{Built a full-stack rating platform with role-based access control (Admin, User, Store Owner), JWT authentication, bcrypt hashing, and a normalized PostgreSQL schema with dynamic search, filtering, and sorting.}
+    \resumeItem{Deployed decoupled architecture -- React on Vercel, Express API on Render -- with SSL-secured database connections and environment-based CORS configuration for production cross-origin traffic.}
+  \resumeItemListEnd
+
+\resumeProjectHeading
+  {AI Agent Query / Ticket Assistant}{Gemini API, Inngest, AgentKit, React, Express.js, MongoDB}{\href{https://github.com/9ikhil/AI-Agent-Ticket-Assistent}{Code} \textbar\ 2025}
+  \resumeItemListStart
+    \resumeItem{Built a full-stack AI agent system to automate IT query handling using Gemini API for intent classification, AgentKit for multi-step task execution, and Inngest for event-driven workflow orchestration.}
   \resumeItemListEnd
