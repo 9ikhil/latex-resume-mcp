@@ -3,7 +3,7 @@
 % Auto-tailored by latex-resume-mcp
 %-------------------------
 
-\documentclass[letterpaper,10.5pt]{article}
+\documentclass[letterpaper,10pt]{article}
 
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
@@ -16,7 +16,6 @@
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
-\usepackage{fontawesome5}
 \input{glyphtounicode}
 
 \pagestyle{fancy}
@@ -28,17 +27,19 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+\addtolength{\topmargin}{-.55in}
+\addtolength{\textheight}{1.1in}
 
 \urlstyle{same}
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
+\setlength{\parindent}{0pt}
 
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+  \vspace{6pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{2pt}]
+\titlespacing*{\section}{0pt}{8pt}{4pt}
 
 \pdfgentounicode=1
 
@@ -46,31 +47,32 @@
 % Custom commands
 %-------------------------
 \newcommand{\resumeItem}[1]{
-  \item\small{#1 \vspace{-2pt}}
+  \item\small{#1}
 }
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+  \item
+    \begin{tabularx}{\textwidth}[t]{@{}X r@{}}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabularx}
 }
 
-\newcommand{\resumeProjectHeading}[2]{
+\newcommand{\resumeProjectHeading}[3]{
   \item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
+    \begin{tabularx}{\textwidth}{@{}X r@{}}
+      \small\textbf{#1} & \small #3 \\
+      \multicolumn{2}{@{}l@{}}{\emph{\small #2}} \\
+    \end{tabularx}
 }
 
-\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
 \renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}, itemsep=5pt, topsep=1pt]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.2in, itemsep=2pt, topsep=2pt, parsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
 
 %=========================
 % DOCUMENT START
@@ -83,17 +85,11 @@
 \begin{center}
     {\Huge \scshape Nikhil Kumar} \\ \vspace{4pt}
     \small
-    \faPhone\ +91-6006829252 \quad
-    \href{mailto:nikhilkumar62910@gmail.com}{\faEnvelope\ nikhilkumar62910@gmail.com} \quad
-    \href{https://linkedin.com/in/nikhil-kumar-00a373273/}{\faLinkedin\ linkedin.com/in/nikhil-kumar} \quad
-    \href{https://github.com/9ikhil}{\faGithub\ github.com/9ikhil}
+    +91-6006829252 \quad
+    \href{mailto:nikhilkumar62910@gmail.com}{nikhilkumar62910@gmail.com} \quad
+    \href{https://linkedin.com/in/nikhil-kumar-00a373273/}{linkedin.com/in/nikhil-kumar} \quad
+    \href{https://github.com/9ikhil}{github.com/9ikhil}
 \end{center}
-
-%-------------------------
-% Summary
-%-------------------------
-\section{Summary}
-\input{sections/summary}
 
 %-------------------------
 % Experience
