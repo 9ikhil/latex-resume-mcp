@@ -4,7 +4,11 @@
 % Compiled automatically by GitHub Actions on every push
 %-------------------------
 
+<<<<<<< HEAD
 \documentclass[letterpaper,11pt]{article}
+=======
+\documentclass[letterpaper,10pt]{article}
+>>>>>>> 6d0e0fdc7e7176d39bc5edb03e539bc386f95f12
 
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
@@ -17,7 +21,6 @@
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
-\usepackage{fontawesome5}
 \input{glyphtounicode}
 
 \pagestyle{fancy}
@@ -29,18 +32,20 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+\addtolength{\topmargin}{-.55in}
+\addtolength{\textheight}{1.1in}
 
 \urlstyle{same}
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
+\setlength{\parindent}{0pt}
 
 % Section formatting
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+  \vspace{6pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{2pt}]
+\titlespacing*{\section}{0pt}{8pt}{4pt}
 
 \pdfgentounicode=1
 
@@ -48,31 +53,32 @@
 % Custom commands
 %-------------------------
 \newcommand{\resumeItem}[1]{
-  \item\small{#1 \vspace{-2pt}}
+  \item\small{#1}
 }
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+  \item
+    \begin{tabularx}{\textwidth}[t]{@{}X r@{}}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabularx}
 }
 
-\newcommand{\resumeProjectHeading}[2]{
+\newcommand{\resumeProjectHeading}[3]{
   \item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
+    \begin{tabularx}{\textwidth}{@{}X r@{}}
+      \small\textbf{#1} & \small #3 \\
+      \multicolumn{2}{@{}l@{}}{\emph{\small #2}} \\
+    \end{tabularx}
 }
 
-\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
 \renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}, itemsep=5pt, topsep=1pt]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.2in, itemsep=2pt, topsep=2pt, parsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
 
 %=========================
 % DOCUMENT START
@@ -90,12 +96,6 @@
     \href{https://linkedin.com/in/yourprofile}{\faLinkedin\ linkedin.com/in/yourprofile} \quad
     \href{https://github.com/yourusername}{\faGithub\ github.com/yourusername}
 \end{center}
-
-%-------------------------
-% Summary
-%-------------------------
-\section{Summary}
-\input{sections/summary}
 
 %-------------------------
 % Experience
