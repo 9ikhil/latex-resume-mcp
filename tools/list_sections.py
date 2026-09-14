@@ -7,10 +7,11 @@ from pathlib import Path
 
 
 SECTION_FILES = {
+    "education": "sections/education.tex",
     "experience": "sections/experience.tex",
     "skills": "sections/skills.tex",
     "projects": "sections/projects.tex",
-    "summary": "sections/summary.tex",
+    "achievements": "sections/achievements.tex",
 }
 
 

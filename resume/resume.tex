@@ -4,13 +4,13 @@
 % Compiled automatically by GitHub Actions on every push
 %-------------------------
 
-\documentclass[letterpaper,11pt]{article}
+\documentclass[letterpaper,10pt]{article}
 
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
 \usepackage{titlesec}
 \usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{color}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{verbatim}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
@@ -29,8 +29,8 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+\addtolength{\topmargin}{-.65in}
+\addtolength{\textheight}{1.3in}
 
 \urlstyle{same}
 \raggedbottom
@@ -62,8 +62,13 @@
 \newcommand{\resumeProjectHeading}[2]{
   \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & #2 \\
+      \small#1 & \small#2 \\
     \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectLinks}[2]{
+  \fcolorbox{black}{gray!10}{\scriptsize\href{#1}{Live}}~
+  \fcolorbox{black}{gray!10}{\scriptsize\href{#2}{Code}}
 }
 
 \newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
@@ -73,6 +78,7 @@
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
 \newcommand{\resumeItemListStart}{\begin{itemize}}
 \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+\setlist[itemize]{nosep}
 
 %=========================
 % DOCUMENT START
@@ -92,10 +98,18 @@
 \end{center}
 
 %-------------------------
-% Summary
+% Education
 %-------------------------
-\section{Summary}
-\input{sections/summary}
+\section{Education}
+\resumeSubHeadingListStart
+\input{sections/education}
+\resumeSubHeadingListEnd
+
+%-------------------------
+% Skills
+%-------------------------
+\section{Technical Skills}
+\input{sections/skills}
 
 %-------------------------
 % Experience
@@ -114,19 +128,9 @@
 \resumeSubHeadingListEnd
 
 %-------------------------
-% Skills
+% Achievements
 %-------------------------
-\section{Technical Skills}
-\input{sections/skills}
-
-%-------------------------
-% Education
-%-------------------------
-\section{Education}
-\resumeSubHeadingListStart
-  \resumeSubheading
-    {Your University Name}{City, State}
-    {Bachelor of Technology in Computer Science}{2020 -- 2024}
-\resumeSubHeadingListEnd
+\section{Achievements}
+\input{sections/achievements}
 
 \end{document}

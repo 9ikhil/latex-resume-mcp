@@ -56,7 +56,7 @@ async def list_tools() -> list[Tool]:
                 "properties": {
                     "section": {
                         "type": "string",
-                        "enum": ["experience", "skills", "projects", "summary"],
+                        "enum": ["experience", "skills", "projects", "achievements"],
                         "description": "Which resume section to rewrite.",
                     },
                     "job_description": {
@@ -108,7 +108,7 @@ async def list_tools() -> list[Tool]:
                 "properties": {
                     "section": {
                         "type": "string",
-                        "description": "Section name (experience/skills/projects/summary) or 'full' for main file.",
+                        "description": "Section name (education/skills/experience/projects/achievements) or 'full' for main file.",
                         "default": "full",
                     },
                 },

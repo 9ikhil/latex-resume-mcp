@@ -4,16 +4,16 @@ Reads a LaTeX resume section and rewrites it to target a specific job descriptio
 Uses keyword injection and section-aware rewriting strategies.
 """
 
-import re
 from pathlib import Path
 from tools.analyze_jd import analyze_jd
 
 
 SECTION_FILES = {
+    "education": "sections/education.tex",
     "experience": "sections/experience.tex",
     "skills": "sections/skills.tex",
     "projects": "sections/projects.tex",
-    "summary": "sections/summary.tex",
+    "achievements": "sections/achievements.tex",
 }
 
 
@@ -52,44 +52,6 @@ def inject_keywords_into_skills(content: str, tech_stack: dict) -> str:
 
     end_of_line = content.find("\n", last_item)
     return content[:end_of_line] + insert_comment + content[end_of_line:]
-
-
-def tailor_summary(content: str, jd_analysis: dict) -> str:
-    """
-    Rewrites the summary section with top keywords from the JD.
-    Keeps the LaTeX structure, replaces only the text content.
-    """
-    keywords = jd_analysis.get("top_keywords", [])[:5]
-    seniority = jd_analysis.get("seniority_level", "mid")
-    tech = jd_analysis.get("tech_stack", {})
-
-    tech_flat = ", ".join(
-        kw for kws in list(tech.values())[:2] for kw in kws[:3]
-    )
-
-    seniority_phrase = {
-        "junior": "early-career software engineer",
-        "mid": "software engineer",
-        "senior": "senior software engineer",
-        "manager": "engineering leader",
-    }.get(seniority, "software engineer")
-
-    new_summary = (
-        f"Results-driven {seniority_phrase} with hands-on experience in "
-        f"{tech_flat}. "
-        f"Passionate about building scalable systems and delivering high-quality software. "
-        f"Strong focus on {', '.join(keywords[:3])} and cross-functional collaboration."
-    )
-
-    braces_pattern = re.compile(r'(\\resumeSummary\{)(.*?)(\})', re.DOTALL)
-    match = braces_pattern.search(content)
-    if match:
-        return content[:match.start(2)] + new_summary + content[match.end(2):]
-
-    return content.replace(
-        re.search(r'%.*?summary.*?\n', content, re.IGNORECASE).group(0) if re.search(r'%.*?summary.*?\n', content, re.IGNORECASE) else "",
-        f"% Tailored summary\n{new_summary}\n",
-    ) if "%" in content else content + f"\n% Tailored\n{new_summary}\n"
 
 
 def tailor_experience(content: str, jd_analysis: dict) -> str:
@@ -160,8 +122,6 @@ def tailor_resume(
         new_content = inject_keywords_into_skills(
             original_content, jd_analysis.get("tech_stack", {})
         )
-    elif section == "summary":
-        new_content = tailor_summary(original_content, jd_analysis)
     elif section == "experience":
         new_content = tailor_experience(original_content, jd_analysis)
     elif section == "projects":

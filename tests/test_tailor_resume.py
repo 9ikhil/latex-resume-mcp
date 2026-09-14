@@ -27,10 +27,10 @@ def test_tailor_skills_returns_dict():
     assert result["section"] == "skills"
 
 
-def test_tailor_summary_returns_dict():
-    result = tailor_resume("summary", SAMPLE_JD, RESUME_DIR)
+def test_tailor_projects_returns_dict():
+    result = tailor_resume("projects", SAMPLE_JD, RESUME_DIR)
     assert isinstance(result, dict)
-    assert result["section"] == "summary"
+    assert result["section"] == "projects"
 
 
 def test_tailor_does_not_write_to_disk():
