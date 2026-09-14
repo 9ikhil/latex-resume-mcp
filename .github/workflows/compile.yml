@@ -30,7 +30,8 @@ jobs:
             texlive-fonts-recommended \
             texlive-fonts-extra \
             texlive-lang-english \
-            latexmk
+            latexmk \
+            poppler-utils
 
       # 3. Compile the PDF (run twice for proper rendering)
       - name: Compile resume.tex → resume.pdf
@@ -38,6 +39,8 @@ jobs:
           cd resume
           pdflatex -interaction=nonstopmode resume.tex
           pdflatex -interaction=nonstopmode resume.tex
+          pages=$(pdfinfo resume.pdf | awk '/^Pages:/ {print $2}')
+          test "$pages" -eq 1 || (echo "Expected a one-page resume, found $pages pages." && exit 1)
 
       # 4. Upload PDF as a build artifact (downloadable from Actions tab)
       - name: Upload PDF artifact

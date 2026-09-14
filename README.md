@@ -61,11 +61,16 @@ git push -u origin main
 Edit these files with your actual information:
 
 - `resume/resume.tex` — header (name, email, LinkedIn, GitHub)
+- `resume/sections/education.tex` — education history
 - `resume/sections/experience.tex` — your work history
 - `resume/sections/skills.tex` — your tech skills
 - `resume/sections/projects.tex` — your projects
-- `resume/sections/summary.tex` — your professional summary
-- `resume/resume.tex` — education section at the bottom
+- `resume/sections/achievements.tex` — awards, certifications, and achievements
+
+The template renders sections in this order: Education, Technical Skills,
+Experience, Projects, and Achievements. Each project includes editable `Live`
+and `Code` links. Replace the example URLs with your deployment and repository
+URLs.
 
 ### 4. Configure Claude Desktop
 
@@ -102,7 +107,7 @@ In Claude Desktop, type:
 ```
 list all resume sections
 ```
-You should see all 4 sections listed with their file paths.
+You should see all 5 editable sections listed with their file paths.
 
 ---
 
@@ -124,14 +129,14 @@ Tailor my skills section for this job description:
 
 ### Tailor and push in one shot
 ```
-Analyze this JD, tailor my summary and skills sections, then push the changes to GitHub:
+Analyze this JD, tailor my skills and projects sections, then push the changes to GitHub:
 
 [paste JD]
 ```
 
 ### Check what changed
 ```
-Read my current summary section
+Read my current projects section
 ```
 
 ---
@@ -183,10 +188,11 @@ resume-maker-mcp/
 ├── resume/
 │   ├── resume.tex                   ← main LaTeX document
 │   └── sections/
+│       ├── education.tex
 │       ├── experience.tex
 │       ├── skills.tex
 │       ├── projects.tex
-│       └── summary.tex
+│       └── achievements.tex
 ├── .github/
 │   └── workflows/
 │       └── compile.yml              ← GitHub Actions PDF builder
