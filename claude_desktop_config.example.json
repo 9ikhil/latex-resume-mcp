@@ -1,0 +1,38 @@
+{
+  "_comment": "Add this block inside your existing claude_desktop_config.json under mcpServers.",
+  "_config_location": {
+    "macOS":   "~/Library/Application Support/Claude/claude_desktop_config.json",
+    "Windows": "%APPDATA%\\Claude\\claude_desktop_config.json",
+    "Linux":   "~/.config/Claude/claude_desktop_config.json"
+  },
+
+  "mcpServers": {
+    "resume-maker": {
+      "command": "/ABSOLUTE/PATH/TO/resume-maker-mcp/.venv/bin/python",
+      "args": ["-m", "server"],
+      "cwd": "/ABSOLUTE/PATH/TO/resume-maker-mcp",
+      "env": {
+        "RESUME_DIR": "/ABSOLUTE/PATH/TO/resume-maker-mcp/resume"
+      }
+    }
+  },
+
+  "_examples": {
+    "macOS": {
+      "command": "/Users/yourname/projects/resume-maker-mcp/.venv/bin/python",
+      "args": ["-m", "server"],
+      "cwd": "/Users/yourname/projects/resume-maker-mcp",
+      "env": {
+        "RESUME_DIR": "/Users/yourname/projects/resume-maker-mcp/resume"
+      }
+    },
+    "Windows": {
+      "command": "C:\\Users\\yourname\\projects\\resume-maker-mcp\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "server"],
+      "cwd": "C:\\Users\\yourname\\projects\\resume-maker-mcp",
+      "env": {
+        "RESUME_DIR": "C:\\Users\\yourname\\projects\\resume-maker-mcp\\resume"
+      }
+    }
+  }
+}

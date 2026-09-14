@@ -1,0 +1,59 @@
+name: Compile Resume PDF
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'resume/**'
+  workflow_dispatch:   # allows manual trigger from GitHub UI
+
+permissions:
+  contents: write      # needed to upload PDF as release asset
+
+jobs:
+  compile-pdf:
+    runs-on: ubuntu-latest
+    name: Build resume.pdf
+
+    steps:
+      # 1. Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install LaTeX (texlive-full is ~4GB, we use a slim set instead)
+      - name: Install LaTeX packages
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-lang-english \
+            latexmk
+
+      # 3. Compile the PDF (run twice for proper rendering)
+      - name: Compile resume.tex → resume.pdf
+        run: |
+          cd resume
+          pdflatex -interaction=nonstopmode resume.tex
+          pdflatex -interaction=nonstopmode resume.tex
+
+      # 4. Upload PDF as a build artifact (downloadable from Actions tab)
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-pdf
+          path: resume/resume.pdf
+          retention-days: 30
+
+      # 5. Also commit the PDF back to the repo for direct download
+      - name: Commit compiled PDF to repo
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add resume/resume.pdf
+          git diff --staged --quiet || git commit -m "ci: recompile resume.pdf [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

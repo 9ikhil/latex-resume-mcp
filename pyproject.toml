@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "resume-maker-mcp"
+version = "1.0.0"
+description = "MCP server that analyzes job descriptions and tailors a LaTeX resume, auto-pushing to GitHub for PDF compilation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+resume-maker-mcp = "server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tools"]
