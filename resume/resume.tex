@@ -28,8 +28,8 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1.0in}
-\addtolength{\topmargin}{-0.7in}
-\addtolength{\textheight}{1.4in}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.7in}
 
 \urlstyle{same}
 \raggedbottom
@@ -38,8 +38,8 @@
 
 % Section formatting – Relaxed to prevent overlap
 \titleformat{\section}{
-  \vspace{-2pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{2pt}]
+  \vspace{-5pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{1pt}]
 
 \pdfgentounicode=1
 
@@ -48,14 +48,14 @@
 %-------------------------
 \newcommand{\resumeItem}[1]{
   \item\small{#1 \vspace{1pt}}
-}3
+}
 
 \newcommand{\resumeSubheading}[4]{
   \vspace{2pt}\item
     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{1pt}
+    \end{tabular*}\vspace{2pt}
 }
 
 \newcommand{\resumeProjectHeading}[2]{
@@ -73,10 +73,12 @@
 \newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
 \renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, itemsep=1pt, topsep=1pt]}
-\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, itemsep=1pt, topsep=1pt]}
+% Setting list spacing to absolute zero
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, itemsep=1pt, topsep=0pt, partopsep=0pt, parsep=0pt]}
+
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, itemsep=1pt, topsep=0pt, partopsep=0pt, parsep=0pt]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{2pt}}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
 
 %=========================
 \begin{document}
