@@ -1,98 +1,153 @@
-%-------------------------
-% Resume - resume-maker-mcp (1-page optimized)
-%-------------------------
+% %-------------------------
+% % Resume - resume-maker-mcp (1-page optimized)
+% %-------------------------
 
+% \documentclass[letterpaper,10pt]{article}
+
+% \usepackage{latexsym}
+% \usepackage[empty]{fullpage}
+% \usepackage{titlesec}
+% \usepackage{marvosym}
+% \usepackage[usenames,dvipsnames]{xcolor}
+% \usepackage{verbatim}
+% \usepackage{enumitem}
+% \usepackage[hidelinks]{hyperref}
+% \usepackage{fancyhdr}
+% \usepackage[english]{babel}
+% \usepackage{tabularx}
+% \usepackage{fontawesome5}
+% \input{glyphtounicode}
+
+% \pagestyle{fancy}
+% \fancyhf{}
+% \fancyfoot{}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+% % Tighter margins for 1 page
+% \addtolength{\oddsidemargin}{-0.6in}
+% \addtolength{\evensidemargin}{-0.6in}
+% \addtolength{\textwidth}{1.2in}
+% \addtolength{\topmargin}{-0.7in}
+% \addtolength{\textheight}{1.4in}
+
+% \urlstyle{same}
+% \raggedbottom
+% \raggedright
+% \setlength{\tabcolsep}{0in}
+
+% % Section formatting – very compact
+% \titleformat{\section}{
+%   \vspace{-6pt}\scshape\raggedright\large
+% }{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+% \pdfgentounicode=1
+
+% %-------------------------
+% % Custom commands (1-page optimized)
+% %-------------------------
+% \newcommand{\resumeItem}[1]{
+%   \item\small{#1}
+% }
+
+% \newcommand{\resumeSubheading}[4]{
+%   \vspace{-1pt}\item
+%     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+%       \textbf{#1} & #2 \\
+%       \textit{\small#3} & \textit{\small #4} \\
+%     \end{tabular*}\vspace{-4pt}
+% }
+
+% \newcommand{\resumeProjectHeading}[2]{
+%   \vspace{-1pt}\item
+%     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+%       \small#1 & \small#2 \\
+%     \end{tabular*}\vspace{-4pt}
+% }
+
+% \newcommand{\resumeProjectLinks}[2]{
+%   \fcolorbox{black}{gray!8}{\scriptsize\href{#1}{\faExternalLink\ Live}}~
+%   \fcolorbox{black}{gray!8}{\scriptsize\href{#2}{\faGithub\ Code}}
+% }
+
+% \newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
+% \renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.10in, label={}, itemsep=1pt, topsep=0pt, parsep=0pt, partopsep=0pt]}
+% \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+% \newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.12in, itemsep=0.5pt, topsep=0pt, parsep=0pt, partopsep=0pt]}
+% \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-3pt}}
+
+% \setlist[itemize]{itemsep=0.5pt, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+% %=========================
+% \begin{document}
+
+% %-------------------------
+% % Header
+% %-------------------------
+% \begin{center}
+%     {\Huge \scshape Nikhil Kumar} \\ \vspace{2pt}
+%     \small
+%     \faPhone\ +91-6006829252 \quad
+%     \href{mailto:nikhilkumar62910@gmail.com}{\faEnvelope\ nikhilkumar62910@gmail.com} \quad
+%     \href{https://linkedin.com/in/nikhil-kumar-00a373273/}{\faLinkedin\ linkedin.com/in/nikhil-kumar-00a373273/} \quad
+%     \href{https://github.com/9ikhil}{\faGithub\ github.com/9ikhil}
+% \end{center}
 \documentclass[letterpaper,10pt]{article}
 
-\usepackage{latexsym}
-\usepackage[empty]{fullpage}
-\usepackage{titlesec}
-\usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{verbatim}
-\usepackage{enumitem}
+% ---------- PAGE LAYOUT ----------
+\usepackage[margin=0.2in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[hidelinks]{hyperref}
-\usepackage{fancyhdr}
-\usepackage[english]{babel}
-\usepackage{tabularx}
-\usepackage{fontawesome5}
-\input{glyphtounicode}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyfoot{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
+% Define custom colors
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
 
-% Tighter margins for 1 page
-\addtolength{\oddsidemargin}{-0.6in}
-\addtolength{\evensidemargin}{-0.6in}
-\addtolength{\textwidth}{1.2in}
-\addtolength{\topmargin}{-0.7in}
-\addtolength{\textheight}{1.4in}
+% Clean header and footer
+\pagestyle{empty}
 
-\urlstyle{same}
+% Formatting styles
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
 \raggedbottom
 \raggedright
-\setlength{\tabcolsep}{0in}
 
-% Section formatting – very compact
-\titleformat{\section}{
-  \vspace{-6pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+% ATS-friendly section formatting
+\titleformat{\section}{\color{darkblue}\scshape\large\bfseries\raggedright}{}{0em}{}[\vspace{0em}\hrule\vspace{0.4em}]
+\titlespacing{\section}{0pt}{5pt}{3pt}
 
-\pdfgentounicode=1
-
-%-------------------------
-% Custom commands (1-page optimized)
-%-------------------------
-\newcommand{\resumeItem}[1]{
-  \item\small{#1}
-}
-
+% Custom ATS-friendly text alignment commands
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-1pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
-      \textbf{#1} & #2 \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-4pt}
+  \vspace{-1pt}\item[]
+  {\textbf{#1} \hfill #2} \\
+  {\textit{#3} \hfill \textit{#4}} \vspace{-4pt}
 }
 
 \newcommand{\resumeProjectHeading}[2]{
-  \vspace{-1pt}\item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & \small#2 \\
-    \end{tabular*}\vspace{-4pt}
+  \vspace{-1pt}\item[]
+  {\small \textbf{#1} \hfill #2} \vspace{-4pt}
 }
 
-\newcommand{\resumeProjectLinks}[2]{
-  \fcolorbox{black}{gray!8}{\scriptsize\href{#1}{\faExternalLink\ Live}}~
-  \fcolorbox{black}{gray!8}{\scriptsize\href{#2}{\faGithub\ Code}}
-}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, rightmargin=0in, itemsep=1pt, topsep=1pt, parsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{2pt}}
 
-\newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
-\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
-
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.10in, label={}, itemsep=1pt, topsep=0pt, parsep=0pt, partopsep=0pt]}
-\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.12in, itemsep=0.5pt, topsep=0pt, parsep=0pt, partopsep=0pt]}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-3pt}}
-
-\setlist[itemize]{itemsep=0.5pt, topsep=0pt, parsep=0pt, partopsep=0pt}
-
-%=========================
 \begin{document}
 
-%-------------------------
-% Header
-%-------------------------
+%----------HEADING----------
 \begin{center}
-    {\Huge \scshape Nikhil Kumar} \\ \vspace{2pt}
+    {\Huge \bfseries \color{darkblue} Nikhil Kumar} \\[3pt]
+    {\small \textbf{Software Engineer} \quad|\quad \textbf{ Full Stack Developer}} \\[3pt]
     \small
-    \faPhone\ +91-6006829252 \quad
-    \href{mailto:nikhilkumar62910@gmail.com}{\faEnvelope\ nikhilkumar62910@gmail.com} \quad
-    \href{https://linkedin.com/in/nikhil-kumar-00a373273/}{\faLinkedin\ linkedin.com/in/nikhil-kumar-00a373273/} \quad
-    \href{https://github.com/9ikhil}{\faGithub\ github.com/9ikhil}
+    +91 6006829252 \quad|\quad
+    \href{mailto:nikhilkumar62910@gmail.com}{nikhilkumar62910@gmail.com} \quad|\quad
+    \href{https://www.linkedin.com/in/nikhil-kumar-00a373273/}{LinkedIn} \quad|\quad
+    \href{https://github.com/9ikhil}{GitHub} \quad|\quad
+    \href{https://portfolio.nikhilkumar.dev/}{Portfolio}
 \end{center}
 
 %-------------------------
