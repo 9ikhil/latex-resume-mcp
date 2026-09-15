@@ -2,7 +2,6 @@
 tailor_resume.py
 Reads a LaTeX resume section and carefully rewrites it to target a job description.
 STRICT RULES:
-- Never invent new experience, projects, companies, dates, or metrics.
 - Only enhance existing content with relevant keywords from the JD.
 - Preserve all original facts, numbers, and structure.
 """
@@ -35,6 +34,8 @@ def inject_keywords_into_skills(content: str, tech_stack: dict) -> str:
     """
     Safely add missing keywords into existing category lines.
     Never creates new \item lines that break the structure.
+    add the keywords which are in the job description , 
+    you can make assumption that this skill is used in this experience but dont make more lines out of it because it can break the structure of the resume
     """
     if not tech_stack:
         return content
