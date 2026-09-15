@@ -29,56 +29,58 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.65in}
-\addtolength{\textheight}{1.3in}
+\addtolength{\topmargin}{-.55in}
+\addtolength{\textheight}{1.15in}
 
 \urlstyle{same}
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
 
-% Section formatting
+% Section formatting – slightly more breathing room
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+  \vspace{-2pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{1pt}]
 
 \pdfgentounicode=1
 
 %-------------------------
-% Custom commands
+% Custom commands (improved spacing)
 %-------------------------
 \newcommand{\resumeItem}[1]{
   \item\small{#1}
 }
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
+  \vspace{2pt}\item
     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-3pt}
+    \end{tabular*}\vspace{1pt}
 }
 
 \newcommand{\resumeProjectHeading}[2]{
-  \item
+  \vspace{3pt}\item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
       \small#1 & \small#2 \\
-    \end{tabular*}\vspace{-3pt}
+    \end{tabular*}\vspace{1pt}
 }
 
 \newcommand{\resumeProjectLinks}[2]{
-  \fcolorbox{black}{gray!10}{\scriptsize\href{#1}{Live}}~
-  \fcolorbox{black}{gray!10}{\scriptsize\href{#2}{Code}}
+  \fcolorbox{black}{gray!8}{\scriptsize\href{#1}{\faExternalLink\ Live}}~
+  \fcolorbox{black}{gray!8}{\scriptsize\href{#2}{\faGithub\ Code}}
 }
 
 \newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
 \renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.12in, label={}, itemsep=4pt, topsep=2pt, parsep=0pt, partopsep=0pt]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
-\setlist[itemize]{itemsep=1pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, itemsep=1.5pt, topsep=1pt, parsep=0pt, partopsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{1pt}}
+
+% Global list defaults (less cramped)
+\setlist[itemize]{itemsep=1.5pt, topsep=1pt, parsep=0pt, partopsep=0pt}
 
 %=========================
 % DOCUMENT START
@@ -89,12 +91,12 @@
 % Header
 %-------------------------
 \begin{center}
-    {\Huge \scshape Your Name} \\ \vspace{4pt}
+    {\Huge \scshape Nikhil Kumar} \\ \vspace{5pt}
     \small
     \faPhone\ +91-6006829252 \quad
-\href{mailto:nikhilkumar62910@gmail.com}{\faEnvelope\ nikhilkumar62910@gmail.com} \quad
-\href{https://linkedin.com/in/nikhil-kumar-00a373273/}{\faLinkedin\ linkedin.com/in/nikhil-kumar-00a373273/} \quad
-\href{https://github.com/9ikhil}{\faGithub\ github.com/9ikhil}
+    \href{mailto:nikhilkumar62910@gmail.com}{\faEnvelope\ nikhilkumar62910@gmail.com} \quad
+    \href{https://linkedin.com/in/nikhil-kumar-00a373273/}{\faLinkedin\ linkedin.com/in/nikhil-kumar-00a373273/} \quad
+    \href{https://github.com/9ikhil}{\faGithub\ github.com/9ikhil}
 \end{center}
 
 %-------------------------

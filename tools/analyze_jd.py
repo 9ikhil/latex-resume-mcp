@@ -110,16 +110,43 @@ def extract_requirements(text: str) -> list[str]:
     return []
 
 
+# ... keep everything else the same ...
+
+# Your actual skills (extracted from skills.tex – update when you change skills)
+MY_SKILLS = {
+    # Languages
+    "python", "c++", "sql", "javascript", "typescript",
+    # Web & Frameworks
+    "html5", "css3", "react", "react.js", "next.js", "node.js", "express.js", "django",
+    # Databases
+    "mysql", "postgresql", "mongodb", "redis", "sequelize",
+    # Cloud & DevOps
+    "aws", "ec2", "s3", "rds", "lambda", "docker", "ci/cd", "git", "linux",
+    # AI & NLP
+    "langchain", "langgraph", "crewai", "rag", "mcp", "llm", "agentic ai",
+    # Architecture
+    "rest api", "rest apis", "microservices", "kafka", "system design",
+}
+
+
 def score_fit(tech_stack: dict, seniority: str) -> dict:
-    """Placeholder scoring — user fills in their own skills for real scoring."""
-    total_found = sum(len(v) for v in tech_stack.values())
-    score = min(100, total_found * 8)
+    """Accurate fit scoring based on your real skill set."""
+    found = {kw.lower() for kws in tech_stack.values() for kw in kws}
+    matched = found & MY_SKILLS
+    missing = found - MY_SKILLS
+
+    total = max(len(found), 1)
+    score = int(len(matched) / total * 100)
+
+    # Small boost for junior/mid roles if many matches
+    if seniority in ("junior", "mid") and score > 50:
+        score = min(100, score + 5)
+
     return {
         "score": score,
-        "note": (
-            "Update tools/analyze_jd.py > score_fit() with your own skills "
-            "for accurate fit scoring."
-        ),
+        "matched": sorted(matched),
+        "missing": sorted(missing),
+        "note": f"Matched {len(matched)}/{len(found)} JD tech keywords.",
     }
 
 
@@ -140,17 +167,13 @@ def analyze_jd(job_description: str) -> dict:
     ]
 
     return {
-        "seniority_level": seniority,
-        "tech_stack": tech_stack,
-        "top_keywords": keywords,
-        "responsibilities": responsibilities,
-        "requirements": requirements,
-        "soft_skills": soft_skills_found,
+        # ...
         "fit_score": fit,
         "summary": (
             f"Found {sum(len(v) for v in tech_stack.values())} technical keywords "
             f"across {len(tech_stack)} categories. "
             f"Seniority: {seniority}. "
-            f"Fit score: {fit['score']}/100."
+            f"Fit score: {fit['score']}/100 "
+            f"(matched: {', '.join(fit.get('matched', [])[:6]) or 'none'})."
         ),
     }

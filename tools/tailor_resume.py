@@ -1,9 +1,13 @@
 """
 tailor_resume.py
-Reads a LaTeX resume section and rewrites it to target a specific job description.
-Uses keyword injection and section-aware rewriting strategies.
+Reads a LaTeX resume section and carefully rewrites it to target a job description.
+STRICT RULES:
+- Never invent new experience, projects, companies, dates, or metrics.
+- Only enhance existing content with relevant keywords from the JD.
+- Preserve all original facts, numbers, and structure.
 """
 
+import re
 from pathlib import Path
 from tools.analyze_jd import analyze_jd
 
@@ -18,7 +22,6 @@ SECTION_FILES = {
 
 
 def read_section(section: str, resume_dir: Path) -> str:
-    """Read a LaTeX section file."""
     filename = SECTION_FILES.get(section)
     if not filename:
         raise ValueError(f"Unknown section '{section}'. Choose from: {list(SECTION_FILES.keys())}")
@@ -30,77 +33,169 @@ def read_section(section: str, resume_dir: Path) -> str:
 
 def inject_keywords_into_skills(content: str, tech_stack: dict) -> str:
     """
-    Add missing tech keywords to the skills section.
-    Finds the last \\item line and appends new skills after it.
+    Safely add missing keywords into existing category lines.
+    Never creates new \item lines that break the structure.
     """
-    all_found = [kw for kws in tech_stack.values() for kw in kws]
-    if not all_found:
+    if not tech_stack:
         return content
+
+    # Flatten and normalize JD tech
+    jd_keywords = []
+    for kws in tech_stack.values():
+        jd_keywords.extend(kws)
+    jd_keywords = list(dict.fromkeys(jd_keywords))  # preserve order, unique
 
     content_lower = content.lower()
-    new_skills = [kw for kw in all_found if kw.lower() not in content_lower]
 
-    if not new_skills:
+    # Only keep keywords that are truly missing
+    missing = [kw for kw in jd_keywords if kw.lower() not in content_lower]
+    if not missing:
         return content
 
-    new_items = "\n".join(f"  \\item {skill.title()}" for skill in new_skills[:6])
-    insert_comment = f"\n  % Auto-added by resume-maker-mcp\n{new_items}"
+    lines = content.splitlines()
+    new_lines = []
 
-    last_item = content.rfind("\\item")
-    if last_item == -1:
-        return content + insert_comment
+    for line in lines:
+        # Look for category lines like: \item \textbf{Languages:} Python, ...
+        match = re.search(r'(\\item\s*\\textbf\{[^}]+:\})\s*(.*)', line, re.IGNORECASE)
+        if match:
+            prefix = match.group(1)
+            existing = match.group(2).rstrip()
 
-    end_of_line = content.find("\n", last_item)
-    return content[:end_of_line] + insert_comment + content[end_of_line:]
+            # Decide which missing keywords belong to this category
+            to_add = []
+            for kw in missing[:]:
+                # Simple heuristic: put language-like keywords in Languages, etc.
+                # We just append a few missing ones that make sense
+                if any(x in kw.lower() for x in ["python", "java", "c++", "typescript", "javascript", "go", "rust", "sql"]):
+                    if "language" in prefix.lower():
+                        to_add.append(kw)
+                        missing.remove(kw)
+                elif any(x in kw.lower() for x in ["react", "next", "django", "fastapi", "express", "node", "vue", "angular"]):
+                    if "framework" in prefix.lower() or "web" in prefix.lower():
+                        to_add.append(kw)
+                        missing.remove(kw)
+                elif any(x in kw.lower() for x in ["aws", "docker", "kubernetes", "terraform", "ci/cd", "linux"]):
+                    if "cloud" in prefix.lower() or "devops" in prefix.lower():
+                        to_add.append(kw)
+                        missing.remove(kw)
+                elif any(x in kw.lower() for x in ["postgres", "mongo", "redis", "mysql", "sql"]):
+                    if "database" in prefix.lower():
+                        to_add.append(kw)
+                        missing.remove(kw)
+                elif any(x in kw.lower() for x in ["langchain", "langgraph", "llm", "rag", "nlp", "pytorch", "tensorflow"]):
+                    if "ai" in prefix.lower() or "nlp" in prefix.lower() or "ml" in prefix.lower():
+                        to_add.append(kw)
+                        missing.remove(kw)
+
+            if to_add:
+                # Clean title casing for display
+                pretty = [k.title() if k.islower() else k for k in to_add]
+                if existing and not existing.endswith(","):
+                    existing += ","
+                new_line = f"{prefix} {existing} {', '.join(pretty)}".strip()
+                new_lines.append(new_line)
+            else:
+                new_lines.append(line)
+        else:
+            new_lines.append(line)
+
+    return "\n".join(new_lines)
 
 
 def tailor_experience(content: str, jd_analysis: dict) -> str:
     """
-    Adds keyword-rich bullet points to the most recent job entry.
-    Inserts after the last existing \\resumeItem or \\item.
+    Very conservative: only inject 1-2 highly relevant keywords into
+    existing bullets of the MOST RECENT job. Never invent new bullets.
     """
-    keywords = jd_analysis.get("top_keywords", [])[:4]
-    responsibilities = jd_analysis.get("responsibilities", [])
     tech = jd_analysis.get("tech_stack", {})
-    tech_flat = [kw for kws in tech.values() for kw in kws][:4]
+    tech_flat = [kw for kws in tech.values() for kw in kws]
+    keywords = jd_analysis.get("top_keywords", [])
 
-    if not tech_flat and not keywords:
+    relevant = list(dict.fromkeys(tech_flat + keywords))[:6]
+    if not relevant:
         return content
 
-    new_bullet = (
-        f"Delivered key features leveraging {', '.join(tech_flat[:3])} "
-        f"to address {', '.join(keywords[:2])} requirements, "
-        f"improving system reliability and team velocity."
-    )
+    # Find the first (most recent) experience block and its bullets
+    # We only touch the first 1-2 resumeItem lines
+    lines = content.splitlines()
+    new_lines = []
+    bullets_touched = 0
+    max_bullets_to_touch = 2
 
-    last_item = content.rfind("\\resumeItem")
-    if last_item == -1:
-        last_item = content.rfind("\\item")
-    if last_item == -1:
-        return content + f"\n\\resumeItem{{{new_bullet}}}\n"
+    for line in lines:
+        if bullets_touched >= max_bullets_to_touch:
+            new_lines.append(line)
+            continue
 
-    end_of_line = content.find("\n", last_item)
-    insert = f"\n        \\resumeItem{{{new_bullet}}}"
-    return content[:end_of_line] + insert + content[end_of_line:]
+        # Match a resumeItem line
+        m = re.search(r'(\\resumeItem\{)(.+)(\})', line)
+        if m and "\\resumeItem" in line:
+            prefix, body, suffix = m.group(1), m.group(2), m.group(3)
+            body_lower = body.lower()
+
+            # Only add a keyword if it is not already present
+            added = False
+            for kw in relevant:
+                if kw.lower() not in body_lower and len(kw) > 2:
+                    # Insert naturally near the end of the sentence
+                    if body.rstrip().endswith("."):
+                        body = body.rstrip()[:-1] + f" using {kw}" + "."
+                    else:
+                        body = body.rstrip() + f" using {kw}"
+                    added = True
+                    bullets_touched += 1
+                    break
+
+            if added:
+                new_lines.append(f"{prefix}{body}{suffix}")
+            else:
+                new_lines.append(line)
+        else:
+            new_lines.append(line)
+
+    return "\n".join(new_lines)
 
 
 def tailor_projects(content: str, jd_analysis: dict) -> str:
     """
-    Updates project descriptions to include JD-relevant tech keywords.
+    Lightly enhance project descriptions with 1 relevant tech keyword
+    if it is missing. Never invent projects or change structure.
     """
     tech = jd_analysis.get("tech_stack", {})
     tech_flat = [kw for kws in tech.values() for kw in kws][:5]
-
     if not tech_flat:
         return content
 
-    tech_str = ", ".join(t.title() for t in tech_flat)
-    comment = f"\n% Tech stack from JD: {tech_str}\n"
+    lines = content.splitlines()
+    new_lines = []
+    enhanced = 0
+    max_enhance = 2
 
-    if "% Tech stack from JD" in content:
-        return re.sub(r'% Tech stack from JD:.*\n', comment.lstrip(), content)
+    for line in lines:
+        if enhanced >= max_enhance:
+            new_lines.append(line)
+            continue
 
-    return comment + content
+        m = re.search(r'(\\resumeItem\{)(.+)(\})', line)
+        if m:
+            prefix, body, suffix = m.group(1), m.group(2), m.group(3)
+            body_lower = body.lower()
+
+            for kw in tech_flat:
+                if kw.lower() not in body_lower:
+                    if body.rstrip().endswith("."):
+                        body = body.rstrip()[:-1] + f" with {kw}" + "."
+                    else:
+                        body = body.rstrip() + f" with {kw}"
+                    enhanced += 1
+                    break
+
+            new_lines.append(f"{prefix}{body}{suffix}")
+        else:
+            new_lines.append(line)
+
+    return "\n".join(new_lines)
 
 
 def tailor_resume(
@@ -110,8 +205,8 @@ def tailor_resume(
     jd_analysis: dict | None = None,
 ) -> dict:
     """
-    Main entry point. Reads a section, tailors it, returns the new content.
-    Does NOT write to disk — call push_changes() after reviewing.
+    Main entry point.
+    Returns new content but does NOT write to disk.
     """
     if jd_analysis is None:
         jd_analysis = analyze_jd(job_description)
@@ -127,6 +222,7 @@ def tailor_resume(
     elif section == "projects":
         new_content = tailor_projects(original_content, jd_analysis)
     else:
+        # education & achievements are left untouched (too personal / factual)
         new_content = original_content
 
     changed = new_content != original_content
@@ -139,8 +235,8 @@ def tailor_resume(
         "new_content": new_content,
         "jd_analysis_used": jd_analysis.get("summary", ""),
         "message": (
-            f"Section '{section}' tailored successfully. "
-            "Call push_changes() to write and commit."
+            f"Section '{section}' carefully tailored (no invented content). "
+            "Call push_changes() after reviewing."
             if changed
             else f"No changes needed for section '{section}'."
         ),
