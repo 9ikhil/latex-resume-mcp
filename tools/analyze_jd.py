@@ -110,9 +110,6 @@ def extract_requirements(text: str) -> list[str]:
     return []
 
 
-# ... keep everything else the same ...
-
-# Your actual skills (extracted from skills.tex – update when you change skills)
 MY_SKILLS = {
     # Languages
     "python", "c++", "sql", "javascript", "typescript",
