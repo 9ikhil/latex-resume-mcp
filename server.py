@@ -37,10 +37,7 @@ async def list_tools() -> list[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "job_description": {
-                        "type": "string",
-                        "description": "The full job description text to analyze.",
-                    },
+                    "job_description": {"type": "string"},
                 },
                 "required": ["job_description"],
             },
@@ -48,8 +45,10 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="tailor_resume",
             description=(
-                "Rewrite a specific resume section to better match a job description. "
-                "Pass the section name and either raw JD text or the output from analyze_jd."
+                "Safely injects missing JD keywords into a section without breaking LaTeX. "
+                "RULE 1: You MUST call read_resume first to understand the baseline. "
+                "RULE 2: Use this tool to generate safe edits. "
+                "RULE 3: Do not rewrite the section from scratch yourself."
             ),
             inputSchema={
                 "type": "object",
@@ -57,16 +56,9 @@ async def list_tools() -> list[Tool]:
                     "section": {
                         "type": "string",
                         "enum": ["experience", "skills", "projects", "achievements"],
-                        "description": "Which resume section to rewrite.",
                     },
-                    "job_description": {
-                        "type": "string",
-                        "description": "The job description text to tailor the section for.",
-                    },
-                    "jd_analysis": {
-                        "type": "object",
-                        "description": "Optional: structured output from analyze_jd to reuse.",
-                    },
+                    "job_description": {"type": "string"},
+                    "jd_analysis": {"type": "object"},
                 },
                 "required": ["section", "job_description"],
             },
@@ -75,14 +67,17 @@ async def list_tools() -> list[Tool]:
             name="push_changes",
             description=(
                 "Write edited LaTeX content to disk, commit, and push to GitHub. "
-                "GitHub Actions will automatically compile the PDF."
+                "CRITICAL GUARDRAILS FOR CONTENT: "
+                "1. NEVER invent jobs, companies, degrees, or projects. "
+                "2. PRESERVE the exact LaTeX structure (\\resumeSubheading, \\resumeItem). "
+                "3. ALL special characters (%, &, $, _) MUST be escaped with a backslash (e.g. \\%, \\&). "
+                "If you violate these rules, the CI/CD pipeline will crash."
             ),
             inputSchema={
                 "type": "object",
                 "properties": {
                     "edits": {
                         "type": "array",
-                        "description": "List of section edits to apply.",
                         "items": {
                             "type": "object",
                             "properties": {
@@ -92,23 +87,19 @@ async def list_tools() -> list[Tool]:
                             "required": ["section", "content"],
                         },
                     },
-                    "commit_message": {
-                        "type": "string",
-                        "description": "Git commit message. Defaults to 'chore: tailor resume via MCP'.",
-                    },
+                    "commit_message": {"type": "string"},
                 },
                 "required": ["edits"],
             },
         ),
         Tool(
             name="read_resume",
-            description="Read the current content of any resume section or the full resume.tex.",
+            description="Read the factual baseline of a resume section. ALWAYS use this before tailoring to ensure you do not drop factual details.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "section": {
                         "type": "string",
-                        "description": "Section name (education/skills/experience/projects/achievements) or 'full' for main file.",
                         "default": "full",
                     },
                 },
@@ -123,8 +114,6 @@ async def list_tools() -> list[Tool]:
             },
         ),
     ]
-
-
 @app.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[TextContent]:
     try:
