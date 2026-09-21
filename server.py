@@ -94,7 +94,7 @@ async def list_tools() -> list[Tool]:
                         "description": "The git branch to push to. Format: 'job-company-role' (e.g., 'job-google-backend'). NEVER use 'main' when tailoring."
                     }
                 },
-                "required": ["edits"],
+                "required": ["edits" , "branch_name"],
             },
         ),
         Tool(
