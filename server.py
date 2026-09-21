@@ -19,7 +19,8 @@ from tools.push_changes import push_changes
 from tools.read_resume import read_resume
 from tools.list_sections import list_sections
 
-RESUME_DIR = Path(os.environ.get("RESUME_DIR", Path(__file__).parent / "resume"))
+RESUME_DIR = Path(os.environ.get(
+    "RESUME_DIR", Path(__file__).parent / "resume"))
 
 app = Server("resume-maker-mcp")
 
@@ -88,6 +89,10 @@ async def list_tools() -> list[Tool]:
                         },
                     },
                     "commit_message": {"type": "string"},
+                    "branch_name": {
+                        "type": "string",
+                        "description": "The git branch to push to. Format: 'job-company-role' (e.g., 'job-google-backend'). NEVER use 'main' when tailoring."
+                    }
                 },
                 "required": ["edits"],
             },
@@ -114,6 +119,8 @@ async def list_tools() -> list[Tool]:
             },
         ),
     ]
+
+
 @app.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[TextContent]:
     try:
@@ -134,7 +141,8 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             result = push_changes(
                 edits=arguments["edits"],
                 resume_dir=RESUME_DIR,
-                commit_message=arguments.get("commit_message", "chore: tailor resume via MCP"),
+                commit_message=arguments.get(
+                    "commit_message", "chore: tailor resume via MCP"),
             )
             return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
